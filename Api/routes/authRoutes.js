@@ -1,10 +1,18 @@
 import { Router } from "express";
 import { signup, login, logout } from "../controllers/authController.js";
+import { protectRoute } from "../middleware/auth.js";
 
-const router = Router()
+const router = Router();
 
-router.post("/signup", signup)
-router.post("/login", login)
-router.post("/logout", logout)
+router.post("/signup", signup);
+router.post("/login", login);
+router.post("/logout", logout);
 
-export default router
+router.get("/me", protectRoute, (req, res) => {
+  res.send({
+    success: true,
+    user: req.user,
+  });
+});
+
+export default router;
