@@ -7,6 +7,8 @@ import userRoutes from "./routes/userRoutes.js";
 import matchesRoutes from "./routes/matchesRoutes.js";
 import messagesRoutes from "./routes/messagesRoutes.js";
 
+import cors from "cors";
+
 import { connectDB } from "./lib/db.js";
 dotenv.config();
 
@@ -15,6 +17,7 @@ const PORT = process.env.PORT || 5002;
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.use("/api/auth", auhtRoutes);
 app.use("/api/users", userRoutes);

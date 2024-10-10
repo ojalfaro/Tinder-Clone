@@ -58,6 +58,7 @@ export const signup = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
 export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -76,7 +77,7 @@ export const login = async (req, res) => {
       });
     }
 
-    const token = signToken(newUser._id);
+    const token = signToken(user._id);
 
     res.cookie("jwt", token, {
       maxAge: 7 * 24 * 60 * 60 * 100, //7 days in milliseconds

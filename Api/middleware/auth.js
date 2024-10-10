@@ -22,7 +22,7 @@ export const protectRoute = async (req, res, next) => {
 
     const currentUser = await User.findById(decoded.id);
 
-    req.User = currentUser;
+    req.user = currentUser;
 
     next();
   } catch (error) {
