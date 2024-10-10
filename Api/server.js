@@ -23,5 +23,5 @@ app.use("/api/messages", messagesRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server in port: ${PORT}`);
-  //connectDB();
+  connectDB();
 });
