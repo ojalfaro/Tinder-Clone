@@ -1,4 +1,5 @@
 import User from "../models/userModel.js";
+import { getConnectedUsers, getIO } from "../socket/socket.server.js";
 
 export const swipeRight = async (req, res) => {
   try {
