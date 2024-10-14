@@ -1,14 +1,25 @@
 import Message from "../models/Message.js";
+import { getConnectedUsers, getIO } from "../socket/socket.server.js";
 
 export const sendMessage = async (req, res) => {
-  const { content, receiverId } = req.body;
-
   try {
+    const { content, receiverId } = req.body;
+
     const newMessage = await Message.create({
       sender: req.user.id,
       receiver: receiverId,
       content,
     });
+
+    const io = getIO();
+    const connectedUsers = getConnectedUsers();
+    const receiverSocketId = connectedUsers.get(receiverId);
+
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", {
+        message: newMessage,
+      });
+    }
 
     res.status(201).json({
       success: true,
